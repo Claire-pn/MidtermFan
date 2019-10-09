@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+    <script src="scripts/jquery.min.js"></script>   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
+    <script src="scripts/jquery.min.js"></script>
+
+    <title>IOT FAN</title>
+
+</head>
+<style>
+.jumbotron{
+color:white;
+font-size: 7ch;
+}
+
+body { 
+  background: url("efan.gif") no-repeat fixed center; 
+  background-size: auto;
+}
+
+
+</style>
+
+<body background url:""> 
+<center><div class="jumbotron text-center">
+    <h1>IOT</h1>
+    <p>FAN SWITCH</p>
+</div></center>
+
+<center><div class="ui inverted segment">
+            <h4 id="status">The device is currently turned off</h4>
+            <button id ="one"class="ui inverted green button">1</button>
+            <button id="two"class="ui inverted yellow button">2</button>
+            <button id="three"class="ui inverted orange button">3</button>
+            <button id="off"class="ui inverted red button">OFF</button>
+</div></center>
+</body>
+
+
+<script src="scripts/browserMqtt.js"></script>
+<script src="scripts/connect.js"></script>
+<script>
+        var connect = "wss://test.mosquitto.org:8081/mqtt";
+        client = mqtt.connect(connect);
+        
+        $(document).ready(function(){
+            $("#one").click(function(e){
+                e.preventDefault();    
+                var time = moment().format('MMMM Do YYYY, h:mm:ss a');
+                var topic = 'banawan/fan/status';
+                var payload = 'Turned at 1: ' +time
+                client.publish(topic, payload);
+                $("#status").html("The fan is currently turned at 1");
+            })
+        })
+        $(document).ready(function(){
+            $("#two").click(function(e){
+                e.preventDefault();    
+                var time = moment().format('MMMM Do YYYY, h:mm:ss a');
+                var topic = 'banawan/fan/status';
+                var payload = 'Turned at 2: ' +time
+                client.publish(topic, payload);
+                $("#status").html("The fan is currently turned at 2");
+            })
+        })
+            $(document).ready(function(){
+            $("#three").click(function(e){
+                e.preventDefault();    
+                var time = moment().format('MMMM Do YYYY, h:mm:ss a');
+                var topic = 'banawan/fan/status';
+                var payload = 'Turned at 3: ' +time
+                client.publish(topic, payload);
+                $("#status").html("The fan is currently turned at 3");
+            })
+        })
+        $(document).ready(function(){
+            $("#off").click(function(e){
+                e.preventDefault();    
+                var time = moment().format('MMMM Do YYYY, h:mm:ss a');
+                var topic = 'banawan/fan/status';
+                var payload = 'Turned Off: ' +time
+                client.publish(topic, payload);
+                $("#status").html("The fan is currently turned off");
+            })
+        })
+</script>
+
+</html>
